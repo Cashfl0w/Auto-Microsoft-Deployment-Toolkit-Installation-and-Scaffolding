@@ -5,7 +5,7 @@ $ISOPath = 'C:\My\DSCTesting\MDTISOs'
 
 $InstalledModules = Get-Module -ListAvailable
 
-if(!($InstalledModules | where {$_.Name -match "PoshProgressBar"}))
+if(!($InstalledModules | Where-Object {$_.Name -match "PoshProgressBar"}))
 {
     Install-Module PoshProgressBar -Verbose
 }
@@ -16,7 +16,7 @@ $PoshProgressBar = New-ProgressBar -MaterialDesign -Theme Dark -IsIndeterminate 
 
 Write-ProgressBar $PoshProgressBar -Activity "Setting up MDT Environment" -Status "Installing xPSDesiredStateConfiguration"
 
-if(!($InstalledModules | where {$_.Name -match "xPSDesiredStateConfiguration"}))
+if(!($InstalledModules | Where-Object {$_.Name -match "xPSDesiredStateConfiguration"}))
 {
     Install-Module xPSDesiredStateConfiguration -Verbose
 }
@@ -458,7 +458,7 @@ Function Enable-TaskSequenceStep
 
     $Steps = $TaskSequence.sequence.group[$GroupTypes[$GroupName]].step
 
-    ($Steps | where {$_.Name -eq $StepName}).Disable = "false"
+    ($Steps | Where-Object {$_.Name -eq $StepName}).Disable = "false"
 
     $TaskSequence.Save("C:\DeploymentShare\Control\$TaskSequenceID\ts.xml")
 
@@ -470,7 +470,7 @@ Function Enable-TaskSequenceStep
     "Win81Update",
     "Win10Update"
 
-) | foreach {
+) | ForEach-Object {
                 Enable-TaskSequenceStep -TaskSequenceID $_ `
                     -GroupName "StateRestore" `
                     -StepName "Windows Update (Pre-Application Installation)" `
