@@ -1,4 +1,7 @@
-﻿$ISOPath = "C:\My\DSCTesting\MDTISOs"
+﻿#region Variables
+$ISOPath = 'C:\My\DSCTesting\MDTISOs'
+#endregion Variables
+
 
 $InstalledModules = Get-Module -ListAvailable
 
